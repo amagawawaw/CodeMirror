@@ -216,7 +216,15 @@
       if (cur.className != null) className = cur.className + " " + className;
       elt.className = className;
       if (cur.render) cur.render(elt, data, cur);
-      else elt.appendChild(document.createTextNode(cur.displayText || getText(cur)));
+      else {
+        if (cur.thumb) {
+          var db_thumb = new Image();
+          db_thumb.src = cur.thumb;
+          db_thumb.className = 'CodeMirror-hint-thumb';
+          elt.appendChild(db_thumb);
+        }
+        elt.appendChild(document.createTextNode(cur.text.displayText || getText(cur.text)));
+      }
       elt.hintId = i;
     }
 
